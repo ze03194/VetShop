@@ -18,4 +18,7 @@ router.route('/updateUser')
 router.route('/deleteUser')
     .post(userController.deleteUser);
 
+router.route('/findUserByToken')
+    .post(userController.findUserByToken)
+
 module.exports = router

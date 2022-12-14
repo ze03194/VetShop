@@ -3,14 +3,16 @@ const app = express();
 const cors = require('cors');
 const corsOptions = require('./config/corsOptions')
 const cookieParser = require('cookie-parser');
+const credentials = require('./config/credentials')
+app.use(credentials)
 
-app.use(cors(corsOptions))
 
 app.use(express.json())
 
 const db = require('./models')
 
 app.use(cookieParser());
+app.use(cors(corsOptions))
 
 // Routers
 const userRouter = require('./routes/Users')

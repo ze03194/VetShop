@@ -36,6 +36,12 @@ const findPetsByOwner = async (req, res) => {
     res.status(200).json(listOfPets)
 }
 
+const findPetByUserIdAndPetName = async (data) => {
+
+
+}
+
+
 module.exports = {
     createPet,
     updatePet,

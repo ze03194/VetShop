@@ -46,13 +46,23 @@ db.accessToken = require('./AccessTokens')(sequelize, DataTypes)
 db.refreshToken = require('./RefreshTokens')(sequelize, DataTypes)
 
 
-
 // db.users.hasMany(db.pets)
 
 db.users.hasMany(db.pets, {
     foreignKey: 'user_id',
     as: 'Pets'
 });
+
+db.appointments.belongsTo(db.users, {
+    foreignKey: 'user_id',
+    as: 'Users'
+})
+
+db.pets.hasMany(db.appointments, {
+    foreignKey: 'pet_id',
+    as: 'Pets'
+})
+
 //
 // db.pets.belongsTo(db.users, {
 //     as: 'testing2'

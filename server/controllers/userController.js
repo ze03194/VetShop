@@ -1,6 +1,8 @@
 const db = require('../models');
 const Users = db.users;
+const RefreshTokens = db.refreshToken
 const bcrypt = require('bcrypt');
+const {where} = require("sequelize");
 
 const createUser = async (req, res) => {
     const user = req.body;
@@ -28,6 +30,33 @@ const createUser = async (req, res) => {
 
 }
 
+const findUserByToken = async (req, res) => {
+    const data = req.body;
+
+    try {
+        const foundToken = await RefreshTokens.findAll({
+            where: {token: data.token}
+        })
+        const user = await Users.findAll({
+            where: {email: foundToken[0].dataValues.email},
+            include: 'Pets',
+
+        })
+
+        let {password, createdAt, updatedAt, ...returnUser} = user[0].dataValues
+
+        for (let i = 0; i < returnUser.Pets.length; i++) {
+            let {createdAt, updatedAt, ...Pet} = returnUser.Pets[i].dataValues
+            returnUser.Pets[i] = Pet
+        }
+
+        return res.status(200).json(returnUser)
+    } catch (error) {
+        console.log(error.message)
+    }
+
+}
+
 const findUserById = async (req, res) => {
     const data = req.body;
     const user = await Users.findByPk(data.id, {
@@ -35,6 +64,14 @@ const findUserById = async (req, res) => {
     })
     return res.json(user);
 }
+
+const findUserByEmail = async (data) => {
+    const user = await Users.findAll({
+        where: {email: data}
+    })
+    return user[0].dataValues.id
+}
+
 
 const updateUser = async (req, res) => {
     const updatedUser = req.body;
@@ -62,6 +99,8 @@ const getAllUsers = async (req, res) => {
 module.exports = {
     createUser,
     findUserById,
+    findUserByToken,
+    findUserByEmail,
     updateUser,
     deleteUser,
     getAllUsers

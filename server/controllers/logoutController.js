@@ -4,10 +4,10 @@ const RefreshToken = db.refreshToken;
 
 
 const handleLogout = async (req, res) => {
-    const cookies = req.cookies;
+    // const cookies = req.cookies;
 
-    if (!cookies?.jwt) return res.status(204).json({'message': 'whoop'});
-    const refreshToken = cookies.jwt;
+    // if (!cookies?.jwt) return res.status(204).json({'message': 'whoop'});
+    const refreshToken = req.body.refreshToken;
     const foundToken = await RefreshToken.findAll({
         where: {token: refreshToken}
     })
@@ -16,11 +16,19 @@ const handleLogout = async (req, res) => {
 
     try {
         if (!foundToken[0].dataValues.token) {
-            res.clearCookie('jwt', {httpOnly: true, maxAge: 24 * 60 * 60 * 1000})
+            res.clearCookie('jwt', {
+                httpOnly: true,
+                sameSite: 'None',
+                secure: true,
+            })
             return res.status(204);
         }
         await foundToken[0].destroy();
-        res.clearCookie('jwt', {httpOnly: true, maxAge: 24 * 60 * 60 * 1000})
+        res.clearCookie('jwt', {
+            httpOnly: true,
+            sameSite: 'None',
+            secure: true,
+        })
         return res.status(204).json({'message': 'Successful logout'});
 
     } catch (error) {

@@ -9,6 +9,8 @@ require('dotenv').config({path: '../.env'});
 
 const handleLogin = async (req, res) => {
     const {userEmail, password} = req.body;
+    const cookies = req.cookies;
+
 
     if (!userEmail || !password) return res.status(400).json({'message': 'Email and password are required'})
 
@@ -20,6 +22,7 @@ const handleLogin = async (req, res) => {
         if (foundEmail[0].dataValues.email === userEmail) {
             const match = await bcrypt.compare(password, foundEmail[0].dataValues.password)
             if (match) {
+                console.log('test')
                 const accessToken = jwt.sign(
                     {email: foundEmail[0].dataValues.email},
                     process.env.ACCESS_TOKEN_SECRET,
@@ -42,8 +45,11 @@ const handleLogin = async (req, res) => {
                     token: refreshToken
                 })
 
-                res.cookie('jwt', refreshToken, {httpOnly: true, maxAge: 24 * 60 * 60 * 1000});
-                res.status(200).json({accessToken});
+                res.cookie('jwt', refreshToken, {
+                    httpOnly: true,
+                    maxAge: 24 * 60 * 60 * 1000
+                });
+                res.status(200).json({accessToken, refreshToken});
 
             } else {
                 return res.status(401).json({"message": "Invalid password"})

@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2d7abdbe-8d1a-463f-9fce-134303b1f91d" name="Changes" comment="" />
+    <list default="true" id="2d7abdbe-8d1a-463f-9fce-134303b1f91d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/appointmentController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/appointmentController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/authController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/authController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/logoutController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/logoutController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/petController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/petController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/refreshTokenController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/refreshTokenController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/userController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/models/Appointments.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/Appointments.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/models/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/Appointments.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/Appointments.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/Refresh.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/Refresh.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/Users.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/Users.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -11,12 +28,13 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="package.json" />
+        <option value="CSS File" />
         <option value="JavaScript File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/client" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -34,12 +52,14 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/jabba/Desktop/vetShop/vetShop/server&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/jabba/Desktop/vetShop/vetShop&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\jabba\Desktop\vetShop\vetShop" />
       <recent name="C:\Users\jabba\Desktop\vetShop\vetShop\server" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -59,7 +79,8 @@
       <workItem from="1670786122673" duration="202000" />
       <workItem from="1670787980307" duration="37507000" />
       <workItem from="1670860087054" duration="1328000" />
-      <workItem from="1670862374893" duration="717000" />
+      <workItem from="1670862374893" duration="45581000" />
+      <workItem from="1670943896164" duration="38789000" />
     </task>
     <servers />
   </component>
