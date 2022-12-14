@@ -82,7 +82,7 @@ const LoginModal = () => {
                                 data-backdrop="false" data-bs-dismiss="modal">Cancel
                         </button>
                         <button id="login-btn" onClick={handleLogin} type="button"
-                                className="btn btn-primary" data-bs-dismiss="modal">Login
+                                className="btn btn-dark" data-bs-dismiss="modal">Login
                         </button>
                     </div>
                 </div>

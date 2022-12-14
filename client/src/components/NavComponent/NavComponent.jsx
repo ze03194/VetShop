@@ -8,7 +8,7 @@ const NavComponent = () => {
 
     return (
         <>
-            <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark bg-gradient">
                 <div className="container-fluid">
                     <Link to="/" className="navbar-brand">Vet Shop</Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse"

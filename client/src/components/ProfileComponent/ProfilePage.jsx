@@ -9,6 +9,7 @@ import EditAppointmentModal from "../modals/EditAppointmentModal";
 import DeleteAppointmentModal from "../modals/DeleteAppointmentModal";
 import EditPetModal from "../modals/EditPetModal";
 import DeletePetModal from "../modals/DeletePetModal";
+import '../CustomStyles.css'
 
 const ProfilePage = () => {
     const {auth} = useAuth();
@@ -116,6 +117,7 @@ const ProfilePage = () => {
         setPet(petInfo)
     }
 
+
     return (
         <>
             {auth?.email
@@ -128,31 +130,34 @@ const ProfilePage = () => {
 
 
                     <h2 className="text-center mt-5">My Appointments</h2>
-                    <div className="row row-cols-1 row-cols-md-3 mt-5 bg-light">
+                    <div
+                        className="row row-cols-1 row-cols-md-3 mt-4 bg-dark bg-gradient rounded-4 custom-shadow">
                         {allAppointments.map(({id, appointmentDate, appointmentTime, user_id, pet_id}) => (
-                            <div className="col mb-4" key={id}>
-                                <div className="card-body mt-3 ">
-                                    <div className="card border mb-3">
-                                        <div className="card-body">
-                                            <h6 className="card-title text-center">Testing</h6>
-                                            <p className="card-text">What date: {appointmentDate}</p>
-                                            <p className="card-text">What time: {appointmentTime}</p>
-                                            <div className="d-flex justify-content-between">
-                                                <Link className="nav-link active"
-                                                      id="please-work"
-                                                      data-bs-toggle="modal"
-                                                      data-bs-target="#edit-appointment-modal"
-                                                      onClick={() =>
-                                                          handleEditAppointment(id, user_id, pet_id, appointmentDate, appointmentTime)}>Edit</Link>
-                                                <Link
-                                                    className="nav-link active"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#delete-appointment-modal">Cancel</Link>
-                                            </div>
+                            <div className="col mb-4 mt-3" key={id}>
+                                {/*<div className="card-body mt-3 ">*/}
+                                <div className="card border mb-3 mt-3 rounded-4">
+                                    <div className="card-body bg-light rounded-4">
+                                        <h6 className="card-title text-center mb-3">Appointment ID: {id}</h6>
+                                        <p className="card-text mt-4 text-center">Date: {appointmentDate}</p>
 
+                                        <p className="card-text text-center">Time: {appointmentTime}</p>
+                                        <div className="d-flex justify-content-center mt-5">
+                                            <Link
+                                                className="nav-link active border border-dark w-25 text-center p-1 rounded-3 me-2"
+                                                id="please-work"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#edit-appointment-modal"
+                                                onClick={() =>
+                                                    handleEditAppointment(id, user_id, pet_id, appointmentDate, appointmentTime)}>Edit</Link>
+                                            <Link
+                                                className="nav-link active border border-dark w-25 text-center p-1 rounded-3"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#delete-appointment-modal">Cancel</Link>
                                         </div>
+
                                     </div>
                                 </div>
+                                {/*</div>*/}
                             </div>
                         ))}
                     </div>
@@ -162,36 +167,38 @@ const ProfilePage = () => {
 
                 <div className="container d-flex flex-column">
                     <h2 className="text-center mt-5">My Pets</h2>
-                    <div className="row row-cols-1 row-cols-md-3 mt-5 bg-light">
+                    <div className="row row-cols-1 row-cols-md-3 mt-4 bg-dark bg-gradient rounded-4 custom-shadow">
                         {allPets.map(({id, animalType, breed, firstName, lastName, age, weight, user_id}) => (
-                            <div className="col mb-4" key={id}>
-                                <div className="card-body mt-3 ">
-                                    <div className="card border mb-3">
-                                        <div className="card-body">
-                                            <h6 className="card-title text-center">{firstName}</h6>
-                                            <p className="card-text">Pet type: {animalType}</p>
-                                            <p className="card-text">Pet breed: {breed}</p>
-                                            <p className="card-text">Pet age: {age}</p>
-                                            <p className="card-text">Pet weight: {weight}</p>
-                                            <div className="d-flex justify-content-between">
-                                                <Link className="nav-link active"
-                                                      data-bs-toggle="modal"
-                                                      data-bs-target="#edit-pet-modal"
-                                                      onClick={() => {
-                                                          handleEditPet(id, animalType, breed, firstName, lastName, age, weight, user_id)
-                                                      }}>Edit </Link>
-                                                <Link className="nav-link active"
-                                                      data-bs-toggle="modal"
-                                                      data-bs-target="#delete-pet-modal"
-                                                      onClick={() => {
-                                                          handleDeletePet(id, animalType, breed, firstName, lastName, age, weight, user_id)
-                                                      }}
-                                                >Delete</Link>
-                                            </div>
-
+                            <div className="col mb-4 mt-3" key={id}>
+                                {/*<div className="card-body mt-3 ">*/}
+                                <div className="card mt-3 mb-3 rounded-4">
+                                    <div className="card-body bg-light rounded-4">
+                                        <h6 className="card-title text-center mb-3">{firstName}</h6>
+                                        <p className="card-text mt-4 text-center">Pet type: {animalType}</p>
+                                        <p className="card-text text-center">Pet breed: {breed}</p>
+                                        <p className="card-text text-center">Pet age: {age}</p>
+                                        <p className="card-text text-center">Pet weight: {weight}</p>
+                                        <div className="d-flex justify-content-center">
+                                            <Link
+                                                className="nav-link active border border-dark w-25 text-center p-1 rounded-3 me-2"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#edit-pet-modal"
+                                                onClick={() => {
+                                                    handleEditPet(id, animalType, breed, firstName, lastName, age, weight, user_id)
+                                                }}>Edit</Link>
+                                            <Link
+                                                className="nav-link active border border-dark w-25 text-center p-1 rounded-3"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#delete-pet-modal"
+                                                onClick={() => {
+                                                    handleDeletePet(id, animalType, breed, firstName, lastName, age, weight, user_id)
+                                                }}
+                                            >Delete</Link>
                                         </div>
+
                                     </div>
                                 </div>
+                                {/*</div>*/}
                             </div>
                         ))}
                     </div>

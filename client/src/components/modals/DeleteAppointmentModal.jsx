@@ -30,7 +30,7 @@ const DeleteAppointmentModal = (appointmentInfo) => {
             setAppointment(appointmentInfo.value.appointment)
 
         }
-    }, [aptDeleted])
+    })
 
 
     function handleSubmit() {
@@ -123,7 +123,7 @@ const DeleteAppointmentModal = (appointmentInfo) => {
                         <button id="update-appt-btn"
                                 onClick={handleSubmit}
                                 type="button"
-                                className="btn btn-primary"
+                                className="btn btn-dark"
                                 data-bs-dismiss="modal">Delete
                         </button>
                     </div>

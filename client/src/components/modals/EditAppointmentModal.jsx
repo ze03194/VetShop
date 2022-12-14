@@ -75,10 +75,11 @@ const EditAppointmentModal = (appointmentInfo) => {
 
 
     return (
-        <div className="modal fade" id="edit-appointment-modal" data-bs-backdrop="false" data-bs-keyboard="false"
+        <div className="modal fade " id="edit-appointment-modal" data-bs-backdrop="false"
+             data-bs-keyboard="false"
              tabIndex="-1"
              aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div className="modal-dialog">
+            <div className="modal-dialog ">
                 <div className="modal-content">
                     <div className="modal-header text-center">
                         <h5 className="modal-title w-100" id="staticBackdropLabel">Edit Appointment</h5>
@@ -157,7 +158,7 @@ const EditAppointmentModal = (appointmentInfo) => {
                         <button id="update-appt-btn"
                                 onClick={handleSubmit}
                                 type="button"
-                                className="btn btn-primary"
+                                className="btn btn-dark"
                                 data-bs-dismiss="modal">Update
                         </button>
                     </div>
