@@ -1,0 +1,20 @@
+#book-apt-card {
+    box-shadow: 1px 2px 8px black;
+}
+
+#display-products-card {
+    box-shadow: 1px 2px 8px black;
+}
+
+#cardimgs {
+    width: 45%;
+
+}
+
+/*#individual-product-card {*/
+/*    width: 100%;*/
+/*}*/
+
+#individual-cards {
+    /*width: 100%;*/
+}

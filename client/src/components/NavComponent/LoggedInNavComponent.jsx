@@ -1,24 +1,38 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import RegisterModal from "../modals/RegisterModal";
 import LoginModal from "../modals/LoginModal";
+import useAuth from "../../hooks/useAuth";
 
 
-const NavComponent = () => {
+const LoggedInNavComponent = () => {
+
+    const {setAuth} = useAuth();
+    const navigator = useNavigate();
+
+    const handleLogout = () => {
+        navigator('/');
+        window.sessionStorage.removeItem("email");
+        window.sessionStorage.removeItem("password");
+        window.sessionStorage.removeItem("refreshToken");
+        window.sessionStorage.setItem("isLoggedIn", "false");
+        setAuth({})
+
+    }
 
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-                <div className="container-fluid">
+                <div className="container-fluid ">
                     <Link to="/" className="navbar-brand">Vet Shop</Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse "
+                    <div className="collapse navbar-collapse"
                          id="navbarSupportedContent">
-                        <ul className="navbar-nav">
+                        <ul className="navbar-nav ">
                             <li className="nav-item">
                                 <Link to="/" className="nav-link active" aria-current="page">Home</Link>
                             </li>
@@ -29,12 +43,11 @@ const NavComponent = () => {
                                 <Link to="/test" className="nav-link active" aria-current="page">Contact Us</Link>
                             </li>
                             <li className="nav-item">
-                                <Link id="login-link" data-bs-toggle="modal" data-bs-target="#login-modal"
-                                      className="nav-link active" aria-current="page">Login</Link>
+                                <Link to="/profile" className="nav-link active" aria-current="page">My Profile</Link>
                             </li>
                             <li className="nav-item">
-                                <Link id="register-link" data-bs-toggle="modal" data-bs-target="#register-modal"
-                                      className="nav-link active">Register</Link>
+                                <Link onClick={handleLogout} className="nav-link active" aria-current="page">Sign
+                                    out</Link>
                             </li>
                         </ul>
                     </div>
@@ -49,4 +62,4 @@ const NavComponent = () => {
     );
 }
 
-export default NavComponent
+export default LoggedInNavComponent
