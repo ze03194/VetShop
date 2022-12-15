@@ -32,8 +32,15 @@ app.use('/authentication', authenticationRouter)
 
 const refreshRouter = require('./routes/Refresh')
 app.use('/refresh', refreshRouter)
+
 const logoutRouter = require('./routes/Logout')
 app.use('/logout', logoutRouter)
+
+const orderRouter = require('./routes/Orders')
+app.use('/orders', orderRouter)
+
+const productRouter = require('./routes/Products')
+app.use('/products', productRouter)
 
 
 db.sequelize.sync().then(() => {

@@ -13,7 +13,8 @@ const DeletePetModal = (petInfo) => {
         }
     })
 
-    const handleSubmit = () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
         deletePet(pet.id)
             .then((response) => {

@@ -27,14 +27,13 @@ const RegisterModal = () => {
     }
 
 
-    function handleRegister() {
-        // let registerBtn = document.getElementById('register-btn');
-        // registerBtn.setAttribute("data-bs-toggle", "modal")
+    const handleRegister = async (e) => {
+        e.preventDefault();
+
         let myModal = new Modal(document.getElementById('login-modal'))
         RegisterService(user)
             .then((response) => {
                 if (response.status === 200) {
-                    console.log('itworked')
                     myModal.show()
                 }
             })

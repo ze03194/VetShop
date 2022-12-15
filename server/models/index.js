@@ -38,12 +38,14 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-db.users = require('./Users')(sequelize, DataTypes)
-db.pets = require('./Pets')(sequelize, DataTypes)
+db.users = require('./Users')(sequelize, DataTypes);
+db.pets = require('./Pets')(sequelize, DataTypes);
 db.employees = require('./Employees')(sequelize, DataTypes)
-db.appointments = require('./Appointments')(sequelize, DataTypes)
-db.accessToken = require('./AccessTokens')(sequelize, DataTypes)
-db.refreshToken = require('./RefreshTokens')(sequelize, DataTypes)
+db.appointments = require('./Appointments')(sequelize, DataTypes);
+db.accessToken = require('./AccessTokens')(sequelize, DataTypes);
+db.refreshToken = require('./RefreshTokens')(sequelize, DataTypes);
+db.orders = require('./Orders')(sequelize, DataTypes);
+db.products = require('./Products')(sequelize, DataTypes);
 
 
 // db.users.hasMany(db.pets)
@@ -53,15 +55,24 @@ db.users.hasMany(db.pets, {
     as: 'Pets'
 });
 
+// db.users.hasMany(db.orders, {
+//     foreignKey: 'user_id',
+//     as: 'Orders'
+// });
+
+db.orders.hasMany(db.products);
+
+
 db.appointments.belongsTo(db.users, {
     foreignKey: 'user_id',
     as: 'Users'
-})
+});
+
 
 db.pets.hasMany(db.appointments, {
     foreignKey: 'pet_id',
     as: 'Pets'
-})
+});
 
 //
 // db.pets.belongsTo(db.users, {

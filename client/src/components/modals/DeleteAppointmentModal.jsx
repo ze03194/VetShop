@@ -33,7 +33,9 @@ const DeleteAppointmentModal = (appointmentInfo) => {
     })
 
 
-    function handleSubmit() {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
         deleteAppointment(appointment.id)
             .then(response => {
                 console.log(response)

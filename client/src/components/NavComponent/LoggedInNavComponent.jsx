@@ -3,12 +3,31 @@ import {Link, useNavigate} from "react-router-dom";
 import RegisterModal from "../modals/RegisterModal";
 import LoginModal from "../modals/LoginModal";
 import useAuth from "../../hooks/useAuth";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCartShopping} from "@fortawesome/free-solid-svg-icons";
+import {useSelector} from "react-redux";
 
 
 const LoggedInNavComponent = () => {
 
     const {setAuth} = useAuth();
     const navigator = useNavigate();
+    const cart = useSelector(state => state.cart)
+
+
+    const renderQuantity = () => {
+        if (cart.totalQuantity > 0) {
+            return (
+                <span className="badge text-light"
+                      id="lblCartCount">{cart.totalQuantity}
+                </span>
+            )
+        } else {
+            return (
+                <span className="badge text-light" id="lblCartCount"></span>
+            )
+        }
+    }
 
     const handleLogout = () => {
         navigator('/');
@@ -32,7 +51,7 @@ const LoggedInNavComponent = () => {
                     </button>
                     <div className="collapse navbar-collapse"
                          id="navbarSupportedContent">
-                        <ul className="navbar-nav ">
+                        <ul className="navbar-nav me-auto">
                             <li className="nav-item">
                                 <Link to="/" className="nav-link active" aria-current="page">Home</Link>
                             </li>
@@ -50,8 +69,23 @@ const LoggedInNavComponent = () => {
                                     out</Link>
                             </li>
                         </ul>
+                        <div className="d-flex text-light me-4 ">
+                            <Link className="nav-link" to="/orders">
+                                <i>
+                                    <FontAwesomeIcon icon={faCartShopping}/>
+                                    {renderQuantity()}
+                                </i>
+                            </Link>
+
+                        </div>
+                        <form className="d-flex" role="search">
+                            <input className="form-control me-2" type="search" placeholder="Search"
+                                   aria-label="Search"/>
+                            <button className="btn btn-outline-light" type="submit">Search</button>
+                        </form>
                     </div>
                 </div>
+
             </nav>
 
             <RegisterModal/>

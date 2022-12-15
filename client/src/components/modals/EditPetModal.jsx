@@ -22,7 +22,8 @@ const EditPetModal = (petInfo) => {
         }))
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault()
         const updatedPet = {
             id: modifiedPet.id,
             animalType: modifiedPet.animalType,

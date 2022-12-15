@@ -8,6 +8,7 @@ const LoginModal = () => {
     const {auth} = useAuth();
     const navigator = useNavigate();
 
+
     const [user, setUser] = useState({
         email: "",
         password: "",

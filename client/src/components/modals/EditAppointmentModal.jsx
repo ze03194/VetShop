@@ -45,7 +45,8 @@ const EditAppointmentModal = (appointmentInfo) => {
         setPets(value)
     }
 
-    function handleSubmit() {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         const updatedAppointment = {
             id: appointment.id,
             appointmentDate: appointment.appointmentDate,

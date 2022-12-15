@@ -8,6 +8,7 @@ import RequireAuth from "./components/RequireAuth";
 import PersistLogin from "./components/PersistLogin";
 import AppointmentPage from "./components/AppointmentComponent/AppointmentPage";
 import ProfilePage from "./components/ProfileComponent/ProfilePage";
+import OrderPage from "./components/OrderComponent/OrderPage";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                     <Route element={<PersistLogin/>}>
                         <Route exact path="/" element={<LandingPage/>}/>
                         <Route exact path="/register" element={<RegisterPage/>}/>
+                        <Route exact path="/orders" element={<OrderPage/>}/>
 
 
                         <Route element={<RequireAuth/>}>

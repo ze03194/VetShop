@@ -3,6 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="2d7abdbe-8d1a-463f-9fce-134303b1f91d" name="Changes" comment="Added profile page and implemented logic for CRUD operations on appointments and pets.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/petController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/petController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/models/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/Appointments.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/Appointments.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,8 +17,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="package.json" />
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -65,7 +69,8 @@
       <workItem from="1670787980307" duration="37507000" />
       <workItem from="1670860087054" duration="1328000" />
       <workItem from="1670862374893" duration="45581000" />
-      <workItem from="1670943896164" duration="49461000" />
+      <workItem from="1670943896164" duration="50278000" />
+      <workItem from="1671030164257" duration="35976000" />
     </task>
     <task id="LOCAL-00001" summary="Added profile page and implemented logic for CRUD operations on appointments and pets.">
       <created>1670985261442</created>

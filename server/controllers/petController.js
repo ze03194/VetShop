@@ -22,7 +22,7 @@ const deletePet = async (req, res) => {
     const pet = await Pets.findByPk(data.id);
     await pet.destroy();
 
-    return res.status(200).json({"Delete Pet": pet});
+    return res.status(200).json({"Deleted Pet": pet});
 }
 
 const findPetsByOwner = async (req, res) => {
