@@ -1,12 +1,17 @@
 import React, {useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import LoginService from "../../api/LoginService";
 import useAuth from "../../hooks/useAuth";
+import {Modal} from "bootstrap";
+import {useDispatch} from "react-redux";
+import {storeUser} from "../../features/user/userSlice";
 
 const LoginModal = () => {
     const {setAuth} = useAuth();
     const {auth} = useAuth();
     const navigator = useNavigate();
+    const location = useLocation();
+    const dispatch = useDispatch();
 
 
     const [user, setUser] = useState({
@@ -23,19 +28,37 @@ const LoginModal = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault()
+
+
+        let myModal = new Modal(document.getElementById('login-modal'))
         await LoginService(user)
             .then((response) => {
                 if (response.status === 200) {
                     let loginForm = document.getElementById('login-form');
                     loginForm.reset();
+
                     const email = user.email;
                     const pwd = user.password;
                     const accessToken = response?.data?.accessToken;
                     setAuth({email, pwd, accessToken})
-                    window.sessionStorage.setItem("email", user.email)
-                    window.sessionStorage.setItem("password", user.password)
-                    window.sessionStorage.setItem("refreshToken", response.data.refreshToken)
-                    window.sessionStorage.setItem("isLoggedIn", "true");
+
+
+                    dispatch(storeUser({
+                        user: response.data.user,
+                        pets: response.data.user.Pets,
+                        appointments: response.data.user.Appointments,
+                        accessToken: response.data.accessToken,
+                        refreshToken: response.data.refreshToken,
+                    }))
+                    console.log('testing: ' + response.data.user.id)
+
+                    // dispatch(initializePets(response.data.user.id))
+                    // dispatch(initializeAppointments(response.data.user.id))
+
+                    // dispatch(initializePets(response.data.user.Pets))
+                    // dispatch(initializeAppointments(response.data.user.Appointments))
+
+                    myModal.dispose();
                 }
             })
             .catch(error => {

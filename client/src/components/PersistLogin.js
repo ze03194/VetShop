@@ -6,7 +6,6 @@ import useAuth from "../hooks/useAuth";
 
 const PersistLogin = () => {
     const [isLoading, setIsLoading] = useState(true);
-    const {setAuth} = useAuth();
     const {auth} = useAuth();
     const refresh = useRefreshToken();
 
@@ -23,12 +22,6 @@ const PersistLogin = () => {
         }
         !auth?.token ? verifyRefreshToken() : setIsLoading(false);
     }, [])
-
-    useEffect(() => {
-        // console.log(`isLoading: ${isLoading}`);
-        // console.log(`token: ${JSON.stringify(auth?.token)}`);
-        console.log(`aT: ${JSON.stringify(auth?.accessToken)}`)
-    }, [isLoading])
 
 
     return (

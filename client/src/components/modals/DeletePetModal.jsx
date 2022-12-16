@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
 import {deletePet} from "../../api/PetService";
 
 const DeletePetModal = (petInfo) => {
     const navigate = useNavigate();
     const location = useLocation()
     const [pet, setPet] = useState({});
+    const [petRemoved, setPetRemoved] = useState(false);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (Object.keys(petInfo.value.pet).length !== 0) {
@@ -15,6 +18,7 @@ const DeletePetModal = (petInfo) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setPetRemoved(true)
 
         deletePet(pet.id)
             .then((response) => {

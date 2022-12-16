@@ -4,8 +4,6 @@ const localHostURL = "http://localhost:8080"
 
 const RegisterService = (user) => {
 
-
-
     return axios({
         method: 'post',
         url: 'http://localhost:8080/users/registerUser',

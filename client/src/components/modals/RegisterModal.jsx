@@ -4,7 +4,6 @@ import useAuth from "../../hooks/useAuth";
 import {Modal} from "bootstrap";
 
 const RegisterModal = () => {
-    const {auth} = useAuth();
     const [registerSuccess, setRegisterSuccess] = useState(false)
 
     const [user, setUser] = useState({
@@ -25,7 +24,6 @@ const RegisterModal = () => {
             [key]: value
         }));
     }
-
 
     const handleRegister = async (e) => {
         e.preventDefault();

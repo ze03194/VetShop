@@ -11,7 +11,6 @@ import {useSelector} from "react-redux";
 const NavComponent = () => {
     const cart = useSelector(state => state.cart)
 
-
     const renderQuantity = () => {
         if (cart.totalQuantity > 0) {
             return (
@@ -42,9 +41,6 @@ const NavComponent = () => {
                             <li className="nav-item">
                                 <Link to="/" className="nav-link active" aria-current="page">Home</Link>
                             </li>
-                            {/*<li className="nav-item">*/}
-                            {/*    <Link to="/" className="nav-link active" aria-current="page">About</Link>*/}
-                            {/*</li>*/}
                             <li className="nav-item">
                                 <Link to="/test" className="nav-link active" aria-current="page">Contact Us</Link>
                             </li>
@@ -77,8 +73,6 @@ const NavComponent = () => {
             <RegisterModal/>
             <LoginModal/>
         </>
-
-
     );
 }
 

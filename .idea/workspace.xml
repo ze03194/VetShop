@@ -3,10 +3,18 @@
   <component name="ChangeListManager">
     <list default="true" id="2d7abdbe-8d1a-463f-9fce-134303b1f91d" name="Changes" comment="Added profile page and implemented logic for CRUD operations on appointments and pets.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/authController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/authController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/logoutController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/logoutController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/controllers/petController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/petController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/refreshTokenController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/refreshTokenController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/userController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/models/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/routes/Appointments.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/Appointments.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/Authentication.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/Authentication.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/Logout.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/Logout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/Pets.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/Pets.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/Users.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/Users.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +60,7 @@
       <recent name="C:\Users\jabba\Desktop\vetShop\vetShop\server" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jabba\Desktop\vetShop\vetShop\client\src\features\appointments" />
       <recent name="C:\Users\jabba\Desktop\vetShop\vetShop\server" />
     </key>
   </component>
@@ -70,7 +79,8 @@
       <workItem from="1670860087054" duration="1328000" />
       <workItem from="1670862374893" duration="45581000" />
       <workItem from="1670943896164" duration="50278000" />
-      <workItem from="1671030164257" duration="35976000" />
+      <workItem from="1671030164257" duration="44951000" />
+      <workItem from="1671117488631" duration="50219000" />
     </task>
     <task id="LOCAL-00001" summary="Added profile page and implemented logic for CRUD operations on appointments and pets.">
       <created>1670985261442</created>

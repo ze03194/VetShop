@@ -21,4 +21,7 @@ router.route('/deleteUser')
 router.route('/findUserByToken')
     .post(userController.findUserByToken)
 
+router.route('/refreshData')
+    .post(userController.refreshData)
+
 module.exports = router

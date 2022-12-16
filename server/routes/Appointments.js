@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const appointmentController = require('../controllers/appointmentController')
-const db = require('../models')
-
 
 router.route('/getAllAppointments')
     .get(appointmentController.getAllAppointments)

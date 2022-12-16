@@ -4,10 +4,6 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config({path: '../.env'});
 
 const handleRefreshToken = async (req, res) => {
-    // const cookies = req.cookies;
-    // console.log('cookies: ' + cookies.jwt)
-
-    // if (!cookies?.jwt) return res.sendStatus(401);
 
     if (!req.body.refreshToken) return res.status(204)
 
@@ -16,10 +12,8 @@ const handleRefreshToken = async (req, res) => {
         where: {email: jwt.decode(refreshToken).email}
     })
 
-
     try {
         if (!foundUser[0].dataValues.email) return res.sendStatus(401).json({'message': 'User not found'})
-
 
         jwt.verify(
             refreshToken,
@@ -36,6 +30,7 @@ const handleRefreshToken = async (req, res) => {
         );
 
     } catch (error) {
+
         return res.status(401).json({"message": foundUser + " not found"})
     }
 }

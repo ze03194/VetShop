@@ -29,7 +29,7 @@ const findPetsByOwner = async (req, res) => {
     const data = req.body;
     const listOfPets = await Pets.findAll({
         where: {
-            user_id: data.id
+            user_id: data.user_id
         }
     })
 
@@ -38,9 +38,7 @@ const findPetsByOwner = async (req, res) => {
 
 const findPetByUserIdAndPetName = async (data) => {
 
-
 }
-
 
 module.exports = {
     createPet,

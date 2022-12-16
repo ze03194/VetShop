@@ -1,25 +1,24 @@
-import React, {useEffect, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import React, {useState} from "react";
+import {Link} from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import {createOrder} from "../../api/OrderService";
 import {useSelector} from "react-redux";
 import {selectAllOrders} from "../../features/cart/cartSlice";
-import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
+import {Modal} from "bootstrap";
 
 const OrderModal = (orderInfo) => {
     const {auth} = useAuth();
     const [isLoggedIn, setIsLoggedIn] = useState(window.sessionStorage.getItem("isLoggedIn"));
     const cart = useSelector(selectAllOrders);
     const [email, setEmail] = useState('');
-    
+
     const handleGuestCheckoutClose = () => {
         let form = document.getElementById('guest-checkout-form');
         form.reset();
     }
 
-    const handleCheckout = async (e, email) => {
-        e.preventDefault();
+    const handleCheckout = async (email) => {
 
         let form = document.getElementById('user-checkout-form');
         form.reset()
@@ -45,6 +44,14 @@ const OrderModal = (orderInfo) => {
             .catch(error => {
                 console.log(error)
             })
+    }
+
+    const testFunction = () => {
+        let loginModal = new Modal(document.getElementById('login-modal'));
+        loginModal.show();
+        let gCheckOutModal = new Modal(document.getElementById('order-modal'))
+        gCheckOutModal.hide()
+
     }
 
     return (
@@ -83,7 +90,10 @@ const OrderModal = (orderInfo) => {
                                                     Register
                                                 </Link>
                                                 <Link className="nav-link active" id="forgot-password-link"
-                                                      data-bs-toggle="modal" data-bs-target="#login-modal">
+                                                      data-bs-dismiss="modal"
+                                                      onClick={testFunction}
+                                                    // data-bs-toggle="modal" data-bs-target="#login-modal"
+                                                >
                                                     Login
                                                 </Link>
                                             </div>
@@ -139,7 +149,7 @@ const OrderModal = (orderInfo) => {
                     </div>
             }
 
-            <LoginModal/>
+            {/*<LoginModal/>*/}
             <RegisterModal/>
         </>
     );

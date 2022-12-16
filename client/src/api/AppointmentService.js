@@ -5,6 +5,7 @@ const localHostURL = "http://localhost:8080"
 const AppointmentService = () => {
 
 }
+
 const createAppointment = (appointmentInfo) => {
     return axios({
         method: 'post',
@@ -35,6 +36,7 @@ const updateAppointment = (appointmentInfo) => {
 }
 
 const findAppointmentsByUser = (user_id) => {
+
     return axios({
         method: 'post',
         url: 'http://localhost:8080/appointments/findAppointmentsByUser',
@@ -43,6 +45,9 @@ const findAppointmentsByUser = (user_id) => {
             user_id: user_id
         }
     })
+        .then(response => {
+            return response
+        })
 }
 
 const deleteAppointment = (id) => {

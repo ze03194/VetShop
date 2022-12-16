@@ -33,7 +33,25 @@
 
 .custom-lc-images {
     max-height: 200px;
-    min-height: 200px;
-    min-width: 100px;
+    min-height: 250px;
+    min-width: 250px;
     max-width: 300px;
+
+}
+
+.custom-spn-width {
+    width: 10%;
+}
+
+.cspw {
+    width: 3% !important
+}
+
+.custom-margin {
+    margin-top: 5.8% !important;
+}
+
+.cspn {
+    min-width: 150px !important;
+    max-width: 150px !important;
 }

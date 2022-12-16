@@ -1,18 +1,19 @@
 import useAuth from "./useAuth";
 import RefreshService from "../api/RefreshService";
+import {useSelector} from "react-redux";
+import {selectRefreshToken, selectUser} from "../features/user/userSlice";
 
 const useRefreshToken = () => {
-    const {auth} = useAuth();
     const {setAuth} = useAuth();
+    const user = useSelector(selectUser)
+    const refreshToken = useSelector(selectRefreshToken)
 
     const refresh = async () => {
-        const email = window.sessionStorage.getItem("email")
-        const password = window.sessionStorage.getItem("password")
 
-        RefreshService()
+        RefreshService(refreshToken)
             .then((response) => {
                 const token = response.data.accessToken;
-                setAuth({email, password, token})
+                setAuth({email: user.email, password: user.password, token})
                 return response.data.accessToken;
             })
             .catch((response) => {

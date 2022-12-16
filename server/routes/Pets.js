@@ -4,8 +4,6 @@ const petController = require('../controllers/petController')
 const db = require("../models");
 const Pets = db.pets
 
-
-
 router.route('/createPet')
     .post(petController.createPet)
 

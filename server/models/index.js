@@ -47,40 +47,21 @@ db.refreshToken = require('./RefreshTokens')(sequelize, DataTypes);
 db.orders = require('./Orders')(sequelize, DataTypes);
 db.products = require('./Products')(sequelize, DataTypes);
 
-
-// db.users.hasMany(db.pets)
-
 db.users.hasMany(db.pets, {
     foreignKey: 'user_id',
     as: 'Pets'
 });
 
-// db.users.hasMany(db.orders, {
-//     foreignKey: 'user_id',
-//     as: 'Orders'
-// });
-
 db.orders.hasMany(db.products);
 
-
-db.appointments.belongsTo(db.users, {
+db.users.hasMany(db.appointments, {
     foreignKey: 'user_id',
-    as: 'Users'
-});
-
+    as: 'Appointments'
+})
 
 db.pets.hasMany(db.appointments, {
     foreignKey: 'pet_id',
     as: 'Pets'
 });
-
-//
-// db.pets.belongsTo(db.users, {
-//     as: 'testing2'
-// })
-
-// db.users.hasMany(db.pets);
-//
-// db.pets.belongsTo(db.users)
 
 module.exports = db;

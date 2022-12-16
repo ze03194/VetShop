@@ -18,7 +18,6 @@ const PromptLogin = () => {
 
             </div>
             <LoginModal/>
-
         </>
     );
 }

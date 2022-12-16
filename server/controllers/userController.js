@@ -1,5 +1,7 @@
 const db = require('../models');
 const Users = db.users;
+const Pets = db.pets;
+const Appointments = db.appointments;
 const RefreshTokens = db.refreshToken
 const bcrypt = require('bcrypt');
 const {where} = require("sequelize");
@@ -18,7 +20,6 @@ const createUser = async (req, res) => {
     } catch (error) {
         console.log(error.message)
     }
-
 
     try {
         user.password = await bcrypt.hash(user.password, 10);
@@ -96,6 +97,19 @@ const getAllUsers = async (req, res) => {
     return res.status(200).json(listOfUsers)
 }
 
+const refreshData = async (req, res) => {
+
+    const listOfPets = await Pets.findAll({
+        where: {user_id: req.body.id}
+    })
+
+    const listOfAppointments = await Appointments.findAll({
+        where: {user_id: req.body.id}
+    })
+
+    return res.status(200).json({pets: listOfPets, appointments: listOfAppointments})
+}
+
 module.exports = {
     createUser,
     findUserById,
@@ -103,5 +117,6 @@ module.exports = {
     findUserByEmail,
     updateUser,
     deleteUser,
-    getAllUsers
+    getAllUsers,
+    refreshData
 }

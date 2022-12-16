@@ -20,7 +20,6 @@ function App() {
                         <Route exact path="/register" element={<RegisterPage/>}/>
                         <Route exact path="/orders" element={<OrderPage/>}/>
 
-
                         <Route element={<RequireAuth/>}>
                             <Route exact path="/profile" element={<ProfilePage/>}/>
                             <Route exact path="/test" element={<TestPage/>}/>

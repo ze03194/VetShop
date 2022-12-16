@@ -3,9 +3,6 @@ import axios from "axios";
 const localHostURL = "http://localhost:8080"
 
 const ProductService = () => {
-
-
-
 }
 
 const createOrder = (order) => {

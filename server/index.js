@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser');
 const credentials = require('./config/credentials')
 app.use(credentials)
 
-
 app.use(express.json())
 
 const db = require('./models')
@@ -32,9 +31,6 @@ app.use('/authentication', authenticationRouter)
 
 const refreshRouter = require('./routes/Refresh')
 app.use('/refresh', refreshRouter)
-
-const logoutRouter = require('./routes/Logout')
-app.use('/logout', logoutRouter)
 
 const orderRouter = require('./routes/Orders')
 app.use('/orders', orderRouter)

@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {deleteAppointment} from "../../api/AppointmentService";
+import {useNavigate} from "react-router-dom";
 
 const DeleteAppointmentModal = (appointmentInfo) => {
+    const navigate = useNavigate();
     const [appointment, setAppointment] = useState({});
     const [user, setUser] = useState({});
     const [aptDeleted, setAptDeleted] = useState(false);
+    const [pets, setPets] = useState({});
 
     useEffect(() => {
 
@@ -32,6 +35,9 @@ const DeleteAppointmentModal = (appointmentInfo) => {
         }
     })
 
+    const renderDate = () => {
+
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -45,6 +51,7 @@ const DeleteAppointmentModal = (appointmentInfo) => {
                 console.log(error)
                 setAptDeleted(false)
             })
+        navigate("/", {state: {from: '/profile'}})
     }
 
     return (
@@ -79,17 +86,17 @@ const DeleteAppointmentModal = (appointmentInfo) => {
                                        disabled
                                 />
                             </div>
-                            <div className="mb-0">
-                                <label></label>
-                                <select className="form-select" id="selectPet" multiple size="2"
-                                        disabled>
-                                    <option>Select Pet(s)</option>
-                                    {user?.Pets?.map(({firstName}) => (
-                                        <option value={firstName}>{firstName}</option>
-                                    ))}
-                                </select>
+                            {/*<div className="mb-0">*/}
+                            {/*    <label></label>*/}
+                            {/*    <select className="form-select" id="selectPet" multiple size="2"*/}
+                            {/*            disabled>*/}
+                            {/*        <option>Select Pet(s)</option>*/}
+                            {/*        {user?.Pets?.map(({firstName}) => (*/}
+                            {/*            <option value={firstName}>{firstName}</option>*/}
+                            {/*        ))}*/}
+                            {/*    </select>*/}
 
-                            </div>
+                            {/*</div>*/}
                             <div className="mb-0">
                                 <label></label>
                                 <input type="text" className="form-control"

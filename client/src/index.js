@@ -9,13 +9,18 @@ import 'jquery/dist/jquery.min.js'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {store} from "./redux/store";
 import {Provider} from "react-redux";
+import {persistStore} from "reduxjs-toolkit-persist";
+import {PersistGate} from "reduxjs-toolkit-persist/es/integration/react";
 
+let persistor = persistStore(store);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <Provider store={store}>
-            <App/>
+            <PersistGate persistor={persistor}>
+                <App/>
+            </PersistGate>
         </Provider>
     </React.StrictMode>
 );

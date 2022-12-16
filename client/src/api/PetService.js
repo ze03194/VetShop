@@ -5,13 +5,20 @@ const localHostURL = "http://localhost:8080"
 const PetService = () => {
 
 }
-const createPet = (petInfo) => {
+const createPet = (pet, user_id) => {
+    console.log(JSON.stringify(pet))
     return axios({
         method: 'post',
         url: 'http://localhost:8080/pets/createPet',
         headers: {},
         data: {
-            petInfo
+            firstName: pet.firstName,
+            lastName: pet.lastName,
+            animalType: pet.animalType,
+            breed: pet.breed,
+            age: pet.age,
+            weight: pet.weight,
+            user_id: user_id
         }
     })
 }
@@ -34,10 +41,10 @@ const updatePet = (petInfo) => {
     })
 }
 
-const findAppointmentsByUser = (user_id) => {
+const findPetsByOwner = async (user_id) => {
     return axios({
         method: 'post',
-        url: 'http://localhost:8080/appointments/findAppointmentsByUser',
+        url: 'http://localhost:8080/pets/findPetsByOwner',
         headers: {},
         data: {
             user_id: user_id
@@ -68,6 +75,6 @@ const findAppointmentById = async (id) => {
 }
 
 
-export {updatePet, deletePet}
+export {createPet, updatePet, deletePet, findPetsByOwner}
 
 export default PetService

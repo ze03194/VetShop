@@ -5,15 +5,16 @@ import LoginModal from "../modals/LoginModal";
 import useAuth from "../../hooks/useAuth";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCartShopping} from "@fortawesome/free-solid-svg-icons";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {logOut} from "../../features/user/userSlice";
+import {emptyCart} from "../../features/cart/cartSlice";
 
 
 const LoggedInNavComponent = () => {
-
     const {setAuth} = useAuth();
     const navigator = useNavigate();
     const cart = useSelector(state => state.cart)
-
+    const dispatch = useDispatch();
 
     const renderQuantity = () => {
         if (cart.totalQuantity > 0) {
@@ -31,10 +32,8 @@ const LoggedInNavComponent = () => {
 
     const handleLogout = () => {
         navigator('/');
-        window.sessionStorage.removeItem("email");
-        window.sessionStorage.removeItem("password");
-        window.sessionStorage.removeItem("refreshToken");
-        window.sessionStorage.setItem("isLoggedIn", "false");
+        dispatch(logOut())
+        dispatch(emptyCart())
         setAuth({})
 
     }
@@ -55,9 +54,6 @@ const LoggedInNavComponent = () => {
                             <li className="nav-item">
                                 <Link to="/" className="nav-link active" aria-current="page">Home</Link>
                             </li>
-                            {/*<li className="nav-item">*/}
-                            {/*    <Link to="/" className="nav-link active" aria-current="page">About</Link>*/}
-                            {/*</li>*/}
                             <li className="nav-item">
                                 <Link to="/test" className="nav-link active" aria-current="page">Contact Us</Link>
                             </li>
@@ -91,8 +87,6 @@ const LoggedInNavComponent = () => {
             <RegisterModal/>
             <LoginModal/>
         </>
-
-
     );
 }
 
