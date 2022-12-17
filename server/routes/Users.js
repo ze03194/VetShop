@@ -24,4 +24,7 @@ router.route('/findUserByToken')
 router.route('/refreshData')
     .post(userController.refreshData)
 
+router.route('/checkIfEmailExists')
+    .post(userController.checkIfEmailExists)
+
 module.exports = router

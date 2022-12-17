@@ -1,13 +1,17 @@
 import React, {useState} from "react";
-import {useSelector} from "react-redux";
-import {selectUser} from "../../features/user/userSlice";
-import {useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {refreshState, selectUser} from "../../features/user/userSlice";
 import {createPet} from "../../api/PetService";
+import {Modal} from "bootstrap";
+import {createMessage} from "../../features/message/messageSlice";
+import MessageModal from "./MessageModals/MessageModal";
+import {refreshData} from "../../api/UserService";
 
 const PetModal = () => {
-    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [pet, setPet] = useState({});
     const user = useSelector(selectUser);
+
 
     const handleChange = (key, value) => {
         setPet(({
@@ -16,21 +20,50 @@ const PetModal = () => {
         }))
     }
 
+    // useEffect(() => {
+    //     refreshData(user.id)
+    //         .then(response => {
+    //             dispatch(refreshState({
+    //                 pets: response.data.pets,
+    //                 appointments: response.data.appointments
+    //             }))
+    //         })
+    //         .catch(error => {
+    //             console.log(error)
+    //         })
+    // }, [allAppointments, allPets])
+
     const handleSubmit = (e) => {
         e.preventDefault()
+        let messageModal = new Modal(document.getElementById('message-modal'))
 
         createPet(pet, user.id)
             .then(response => {
-                console.log(response)
+                refreshData(user.id)
+                    .then(response => {
+                        dispatch(refreshState({
+                            pets: response.data.pets,
+                            appointments: response.data.appointments
+                        }))
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
             })
             .catch(error => {
+                dispatch(createMessage({
+                    title: 'Create Pet Failed',
+                    body: 'Please fill out all required fields.'
+                }))
+                messageModal.show()
                 console.log(error)
             })
 
         let petForm = document.getElementById('add-pet-form');
         petForm.reset();
 
-        navigate("/", {state: {from: '/profile'}})
+        // navigate("/", {state: {from: '/profile'}})
     }
 
 
@@ -98,12 +131,13 @@ const PetModal = () => {
                         <button id="add-pet-btn"
                                 onClick={handleSubmit}
                                 type="button"
-                                className="btn btn-primary"
+                                className="btn btn-dark"
                                 data-bs-dismiss="modal">Submit
                         </button>
                     </div>
                 </div>
             </div>
+            <MessageModal/>
         </div>
     );
 

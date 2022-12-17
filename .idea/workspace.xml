@@ -3,17 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="2d7abdbe-8d1a-463f-9fce-134303b1f91d" name="Changes" comment="Added profile page and implemented logic for CRUD operations on appointments and pets.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/controllers/authController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/authController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/controllers/logoutController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/logoutController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/appointmentController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/appointmentController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/orderController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/orderController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/controllers/petController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/petController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/controllers/refreshTokenController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/refreshTokenController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/userController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/models/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/Appointments.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/Appointments.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/Authentication.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/Authentication.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/Logout.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/Logout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/Pets.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/Pets.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/routes/Users.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/Users.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -60,6 +55,7 @@
       <recent name="C:\Users\jabba\Desktop\vetShop\vetShop\server" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jabba\Desktop\vetShop\vetShop\client\src\components\modals\MessageModals" />
       <recent name="C:\Users\jabba\Desktop\vetShop\vetShop\client\src\features\appointments" />
       <recent name="C:\Users\jabba\Desktop\vetShop\vetShop\server" />
     </key>
@@ -81,6 +77,8 @@
       <workItem from="1670943896164" duration="50278000" />
       <workItem from="1671030164257" duration="44951000" />
       <workItem from="1671117488631" duration="50219000" />
+      <workItem from="1671204160728" duration="38192000" />
+      <workItem from="1671290886970" duration="16774000" />
     </task>
     <task id="LOCAL-00001" summary="Added profile page and implemented logic for CRUD operations on appointments and pets.">
       <created>1670985261442</created>

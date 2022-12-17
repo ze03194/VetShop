@@ -37,6 +37,17 @@ const refreshData = (user_id) => {
     })
 }
 
-export {getUserById, refreshData}
+const checkIfEmailExists = async (checkEmail) => {
+    return axios({
+        method: 'post',
+        url: 'http://localhost:8080/users/checkIfEmailExists',
+        headers: {},
+        data: {
+            email: checkEmail
+        }
+    })
+}
+
+export {getUserById, refreshData, checkIfEmailExists}
 
 export default UserService

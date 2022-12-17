@@ -6,7 +6,6 @@ const PetService = () => {
 
 }
 const createPet = (pet, user_id) => {
-    console.log(JSON.stringify(pet))
     return axios({
         method: 'post',
         url: 'http://localhost:8080/pets/createPet',

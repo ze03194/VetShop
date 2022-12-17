@@ -1,34 +1,46 @@
-import React, {useEffect, useState} from "react";
-import {useLocation, useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import React from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {deletePet} from "../../api/PetService";
+import {refreshData} from "../../api/UserService";
+import {refreshState, selectUser} from "../../features/user/userSlice";
+import {clearPet, selectPet} from "../../features/pet/petSlice";
+import {Modal} from "bootstrap";
+import {createMessage} from "../../features/message/messageSlice";
 
-const DeletePetModal = (petInfo) => {
-    const navigate = useNavigate();
-    const location = useLocation()
-    const [pet, setPet] = useState({});
-    const [petRemoved, setPetRemoved] = useState(false);
+const DeletePetModal = () => {
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        if (Object.keys(petInfo.value.pet).length !== 0) {
-            setPet(petInfo.value.pet)
-        }
-    })
+    const user = useSelector(selectUser);
+    const pet = useSelector(selectPet);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setPetRemoved(true)
+
+        let messageModal = new Modal(document.getElementById('message-modal'));
 
         deletePet(pet.id)
             .then((response) => {
-                console.log(response)
+                refreshData(user.id)
+                    .then(response => {
+                        dispatch(refreshState({
+                            pets: response.data.pets,
+                            appointments: response.data.appointments
+                        }))
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
             })
             .catch(error => {
+                dispatch(createMessage({
+                    title: 'Delete Pet Failed',
+                    body: 'Reason: Internal server error.'
+                }))
+
+                messageModal.show();
                 console.log(error)
             })
 
-        navigate("/", {state: {from: '/profile'}})
+        dispatch(clearPet());
     }
 
     return (

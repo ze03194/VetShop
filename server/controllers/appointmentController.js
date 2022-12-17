@@ -4,26 +4,62 @@ const Users = db.users;
 const Pets = db.pets;
 const userController = require('./userController')
 const petController = require('./petController')
+const {raw} = require("express");
 
 const createAppointment = async (req, res) => {
-    const appointment = req.body;
 
-    for (let i = 0; i < appointment.pets.length; i++) {
-        let {pets, ...newAppointment} = appointment;
-        newAppointment = {...newAppointment, pet_id: pets[i]}
-        await Appointments.create(newAppointment);
+    try {
+        const appointment = req.body;
+
+        const listOfAppointments = await Appointments.findAll({raw: true});
+
+
+        listOfAppointments.map(element => {
+            if ((element.appointmentDate === appointment.appointmentDate) &&
+                (element.appointmentTime === appointment.appointmentTime)) {
+                return res.status(409).json({message: "Date and time already scheduled."})
+            }
+        })
+
+        if (!appointment.appointmentDate || !appointment.appointmentTime || !appointment.pets) {
+            return res.status(400).json({message: "Missing params"})
+        }
+
+
+        for (let i = 0; i < appointment.pets.length; i++) {
+            let {pets, ...newAppointment} = appointment;
+            newAppointment = {...newAppointment, pet_id: pets[i]}
+            await Appointments.create(newAppointment);
+        }
+
+        return res.status(200).json({"Appointment Created": appointment});
+
+    } catch (error) {
+        console.log(error)
     }
 
-    return res.status(200).json({"Appointment Created": appointment});
+
 }
 
 const updateAppointment = async (req, res) => {
-    const updatedAppointment = req.body;
-    const appointment = await Appointments.findByPk(updatedAppointment.id);
-    await appointment.set(updatedAppointment);
-    await appointment.save();
+    try {
+        const updatedAppointment = req.body;
 
-    res.status(200).json({"Appointment Updated": appointment})
+        if (!updatedAppointment.appointmentDate || !updatedAppointment.appointmentTime || !updatedAppointment.pets) {
+            return res.status(400).json({message: "Missing params"})
+        }
+
+        const appointment = await Appointments.findByPk(updatedAppointment.id);
+        await appointment.set(updatedAppointment);
+        await appointment.save();
+
+        res.status(200).json({"Appointment Updated": appointment})
+
+    } catch (error) {
+        console.log(error)
+    }
+
+
 }
 
 const deleteAppointment = async (req, res) => {

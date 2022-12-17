@@ -1,44 +1,28 @@
 import React, {useEffect, useState} from "react";
 import {updateAppointment} from "../../api/AppointmentService";
 import {useLocation, useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {createMessage} from "../../features/message/messageSlice";
+import {refreshState, selectPets, selectUser} from "../../features/user/userSlice";
+import {refreshData} from "../../api/UserService";
+import {clearAppointment, selectAppointment} from "../../features/appointment/appointmentSlice";
+import MessageModal from "./MessageModals/MessageModal";
+import {Modal} from "bootstrap";
 
-const EditAppointmentModal = (appointmentInfo) => {
+const EditAppointmentModal = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const location = useLocation()
-    const [appointment, setAppointment] = useState({});
-    const [user, setUser] = useState({});
-    const [userFound, setUserFound] = useState(false);
-    const [appointmentFound, setAppointmentFound] = useState(false);
+    const returnedAppointment = useSelector(selectAppointment)
+    const user = useSelector(selectUser)
     const [pets, setPets] = useState([]);
+    const allPets = useSelector(selectPets);
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
-    const [aptEdited, setAptEdited] = useState(false);
 
     useEffect(() => {
-        if (Object.keys(appointmentInfo.value.user).length !== 0) {
-            setUser(appointmentInfo.value.user)
-            setUserFound(true);
-        }
-        if (Object.keys(appointmentInfo.value.appointment).length !== 0) {
 
-            appointmentInfo.value.appointment.appointmentDate = new Date(Date.parse(appointmentInfo.value.appointment.appointmentDate))
-                .toISOString().split('T')[0]
-
-            let [time, modifier] = appointmentInfo.value.appointment.appointmentTime.split(' ');
-            let [hours, minutes] = time.split(':')
-
-            if (hours === '12') {
-                hours = '00';
-            }
-            if (modifier === 'PM' || modifier === 'pm') {
-                hours = parseInt(hours, 10) + 12;
-            }
-            appointmentInfo.value.appointment.appointmentTime = hours + ':' + minutes
-
-            setAppointment(appointmentInfo.value.appointment)
-        }
-    })
-
+    }, [returnedAppointment])
 
     function handleSelector(event) {
         let value = Array.from(event.target.selectedOptions, option => option.value);
@@ -47,30 +31,41 @@ const EditAppointmentModal = (appointmentInfo) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        let messageModal = new Modal(document.getElementById('message-modal'))
+
         const updatedAppointment = {
-            id: appointment.id,
-            appointmentDate: appointment.appointmentDate,
-            appointmentTime: appointment.appointmentTime,
-            userId: user.id,
+            id: returnedAppointment.id,
+            appointmentDate: date ? date : returnedAppointment.appointmentDate,
+            appointmentTime: time ? time : returnedAppointment.appointmentTime,
+            userId: returnedAppointment.userId,
             pets: pets
         }
 
         updateAppointment(updatedAppointment)
             .then((response) => {
-                console.log(response.data)
-
+                refreshData(user.id)
+                    .then(response => {
+                        dispatch(refreshState({
+                            pets: response.data.pets,
+                            appointments: response.data.appointments
+                        }))
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
             })
             .catch(error => {
-                setAptEdited(false)
+                dispatch(createMessage({
+                    title: 'Update Appointment Failed',
+                    body: 'Internal server error.'
+                }))
+                messageModal.show()
+
                 console.log(error)
             })
 
-        console.log(JSON.stringify(location))
-        console.log(JSON.stringify(location))
-
-        navigate("/", {state: {from: '/profile'}})
-
-        // navigate("/profile")
+        dispatch(clearAppointment())
 
     }
 
@@ -92,19 +87,19 @@ const EditAppointmentModal = (appointmentInfo) => {
                             <div className="d-flex ">
                                 <label htmlFor="first-name"></label>
                                 <input type="text" className="form-control me-2" id="first-name"
-                                       placeholder={user.firstName}
+                                       placeholder={user?.firstName}
                                        disabled
                                 />
                                 <label htmlFor="last-name"></label>
                                 <input type="text" className="form-control" id="last-name"
-                                       placeholder={user.lastName}
+                                       placeholder={user?.lastName}
                                        disabled
                                 />
                             </div>
                             <div className="mb-sm-0">
                                 <label htmlFor="email"></label>
                                 <input type="text" className="form-control" id="email"
-                                       placeholder={user.email}
+                                       placeholder={user?.email}
                                        disabled
                                 />
                             </div>
@@ -113,7 +108,7 @@ const EditAppointmentModal = (appointmentInfo) => {
                                 <select className="form-select" id="selectPet" multiple size="2"
                                         onChange={handleSelector}>
                                     <option>Select Pet(s)</option>
-                                    {user?.Pets?.map(({firstName}) => (
+                                    {allPets?.map(({firstName}) => (
                                         <option value={firstName}>{firstName}</option>
                                     ))}
                                 </select>
@@ -122,7 +117,7 @@ const EditAppointmentModal = (appointmentInfo) => {
                             <div className="mb-0">
                                 <label htmlFor="phoneNumber"></label>
                                 <input type="text" className="form-control" id="phoneNumber"
-                                       placeholder={user.phoneNumber}
+                                       placeholder={user?.phoneNumber}
                                        disabled
                                 />
                             </div>
@@ -130,11 +125,9 @@ const EditAppointmentModal = (appointmentInfo) => {
                                 <label htmlFor="apptDate"></label>
                                 <input type="date" className="form-control" id="apptDate"
                                        placeholder="Date"
-                                       defaultValue={appointment.appointmentDate}
-                                       value={appointment.appointmentDate}
-                                    // onChange={(event) => setDate(event.target.value)}
+                                       value={date ? date : returnedAppointment?.appointmentDate ? returnedAppointment.appointmentDate : ''}
                                        onChange={(event) => {
-                                           appointment.appointmentDate = event.target.value
+                                           setDate(event.target.value)
                                        }}
                                 />
                             </div>
@@ -142,10 +135,9 @@ const EditAppointmentModal = (appointmentInfo) => {
                                 <label htmlFor="apptTime"></label>
                                 <input type="time" className="form-control" step="600" min="08:00" max="17:30"
                                        id="apptTime"
-                                       defaultValue={appointment.appointmentTime}
-                                    // onChange={(event) => setTime(event.target.value)}
+                                       defaultValue={time ? time : returnedAppointment?.appointmentTime}
                                        onChange={(event) => {
-                                           appointment.appointmentTime = event.target.value
+                                           setTime(event.target.value)
                                        }}
                                        required
                                 />
@@ -165,6 +157,7 @@ const EditAppointmentModal = (appointmentInfo) => {
                     </div>
                 </div>
             </div>
+            <MessageModal/>
         </div>
     );
 }

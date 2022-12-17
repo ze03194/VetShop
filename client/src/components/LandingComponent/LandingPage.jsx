@@ -9,6 +9,7 @@ import {faMinus, faPlus, faStar, faStarHalfAlt} from "@fortawesome/free-solid-sv
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useDispatch, useSelector} from "react-redux";
 import {getAllProducts} from "../../api/ProductService";
+import AppointmentModal from "../modals/AppointmentModal";
 
 
 function LandingPage() {
@@ -21,7 +22,6 @@ function LandingPage() {
     const location = useLocation();
 
     useEffect(() => {
-
 
         if (location?.state)
             if (location.state.from === '/profile' || location.state.from === '/appointment') {
@@ -90,20 +90,41 @@ function LandingPage() {
                 : <NavComponent/>}
 
             <div className="container-fluid d-flex flex-column ">
-                <div
-                    className="card align-self-center mt-5 p-2 bg-dark bg-gradient
+                {auth?.email ? (
+                        <div
+                            className="card align-self-center mt-5 p-2 bg-dark bg-gradient
                       text-light border border-2 border-dark rounded-4 custom-shadow"
-                    id="book-apt-card">
-                    <h3 className="text-center ">Welcome to the Vet Shop!</h3>
-                    <div className="card-body ">
-                        <h5 className="card-title text-center">Schedule an appointment</h5>
-                        <p className="card-text text-center">Now accepting new clients</p>
-                        <p className="card-text text-center">
-                            Please click <Link className="text-light" to="/appointment">here</Link> to schedule an
-                            appointment for your pet!
-                        </p>
+                            id="book-apt-card">
+                            <h3 className="text-center ">Welcome to the Vet Shop!</h3>
+                            <div className="card-body ">
+                                <h5 className="card-title text-center">Schedule an appointment</h5>
+                                <p className="card-text text-center">Now accepting new clients</p>
+                                <p className="card-text text-center">
+                                    Please click <Link className="text-light" data-bs-toggle="modal"
+                                                       data-bs-target="#appointment-modal">here</Link> to schedule an
+                                    appointment for your pet!
+                                </p>
+                            </div>
+                        </div>
+                    ) :
+                    <div
+                        className="card align-self-center mt-5 p-2 bg-dark bg-gradient
+                      text-light border border-2 border-dark rounded-4 custom-shadow"
+                        id="book-apt-card">
+                        <h3 className="text-center ">Welcome to the Vet Shop!</h3>
+                        <div className="card-body ">
+                            <h5 className="card-title text-center">Schedule an appointment</h5>
+                            <p className="card-text text-center">Now accepting new clients</p>
+                            <p className="card-text text-center">
+                                Please login <Link className="text-light" data-bs-toggle="modal"
+                                                   data-bs-target="#login-modal">here</Link> to schedule an
+                                appointment for your pet!
+                            </p>
+                        </div>
                     </div>
-                </div>
+                }
+
+
                 <div
                     className="card mt-5 p-2 bg-dark bg-gradient rounded-4 mb-5  border border-2 border-dark custom-shadow text-light "
                     id="display-products-card">
@@ -116,6 +137,7 @@ function LandingPage() {
                     </div>
                 </div>
             </div>
+            <AppointmentModal/>
         </>
 
 

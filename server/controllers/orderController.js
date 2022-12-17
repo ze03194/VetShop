@@ -1,9 +1,16 @@
 const db = require('../models');
 const Orders = db.orders;
+const {v4: uuidv4} = require('uuid');
+const emailConfig = require("../config/emailConfig");
+// const nodemailer = require('nodemailer')
 
 const createOrder = async (req, res) => {
-    const order = req.body;
+    let order = req.body;
+    order = {...order, id: uuidv4()}
+
     await Orders.create(order);
+
+    emailConfig(order)
 
     return res.status(200).json({"Order Created": order})
 }

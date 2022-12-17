@@ -13,7 +13,6 @@ const OrderPage = () => {
     const {auth} = useAuth();
     const cart = useSelector(selectAllOrders)
     const [quantity, setQuantity] = useState(0)
-    const [productRemoved, setProductRemoved] = useState(false)
     const [totalPrice, setTotalPrice] = useState(cart.totalPrice)
     const [order, setOrder] = useState({})
     const dispatch = useDispatch();
@@ -27,11 +26,16 @@ const OrderPage = () => {
 
     const handleRemoveProduct = (product) => {
         dispatch(removeItem(product))
-        setProductRemoved(true)
-        const newPrice = totalPrice - product.product_price * product.quantity;
-        setTotalPrice(newPrice);
     }
 
+    const handleSubmitOrder = async (e) => {
+        e.preventDefault();
+
+        let listOfProductIds = []
+        cart.cart.map(product => listOfProductIds.push(product.product_id))
+        let order = {products: listOfProductIds, totalPrice: totalPrice}
+        setOrder(order)
+    }
 
     const renderedOrders = cart.cart.map(product => (
 
@@ -87,15 +91,6 @@ const OrderPage = () => {
         </div>
     ))
 
-    const handleSubmitOrder = async (e) => {
-        e.preventDefault();
-
-        let listOfProductIds = []
-        cart.cart.map(product => listOfProductIds.push(product.product_id))
-        let order = {products: listOfProductIds, totalPrice: totalPrice}
-        setOrder(order)
-    }
-
     return (
         <>
             {auth?.email
@@ -123,8 +118,8 @@ const OrderPage = () => {
                     <div
                         className="d-flex flex-column bg-dark bg-gradient text-light rounded-4 p-5  mt-5 align-items-center custom-shadow">
                         <span>You currently have no orders in your cart.</span>
-                        <span>Please login <Link className="text-light" data-bs-toggle="modal"
-                                                 data-bs-target="#login-modal">here</Link>.</span>
+                        {/*<span>Please login <Link className="text-light" data-bs-toggle="modal"*/}
+                        {/*                         data-bs-target="#login-modal">here</Link>.</span>*/}
                     </div>
 
                 </div>

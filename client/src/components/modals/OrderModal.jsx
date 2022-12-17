@@ -2,56 +2,100 @@ import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import {createOrder} from "../../api/OrderService";
-import {useSelector} from "react-redux";
-import {selectAllOrders} from "../../features/cart/cartSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {emptyCart, selectAllOrders} from "../../features/cart/cartSlice";
 import RegisterModal from "./RegisterModal";
 import {Modal} from "bootstrap";
+import MessageModal from "./MessageModals/MessageModal";
+import {createMessage} from "../../features/message/messageSlice";
+
+const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 const OrderModal = (orderInfo) => {
     const {auth} = useAuth();
     const [isLoggedIn, setIsLoggedIn] = useState(window.sessionStorage.getItem("isLoggedIn"));
     const cart = useSelector(selectAllOrders);
+    const dispatch = useDispatch();
     const [email, setEmail] = useState('');
+    const [validEmail, setValidEmail] = useState(false);
+    const [emailError, setEmailError] = useState('');
+    const [message, setMessage] = useState({});
+
+
+    const handleChange = (value) => {
+        if (value.length > 0) {
+            setValidEmail(emailRegex.test(value));
+            if (!validEmail) {
+                setEmailError('Invalid email')
+            }
+            if (validEmail) {
+                setEmail(value)
+            }
+        } else {
+            setEmailError('')
+        }
+
+    }
 
     const handleGuestCheckoutClose = () => {
         let form = document.getElementById('guest-checkout-form');
         form.reset();
     }
 
-    const handleCheckout = async (email) => {
-
+    const handleCheckout = (email) => {
         let form = document.getElementById('user-checkout-form');
+        let messageModal = new Modal(document.getElementById('message-modal'));
         form.reset()
         const order = {products: orderInfo.value.products, email: email, totalPrice: cart.totalPrice}
         createOrder(order)
             .then(response => {
-                console.log(response)
+                dispatch(createMessage({
+                    title: 'Order Confirmed',
+                    body: 'Thank you for your order! Please check your email for more details1.'
+                }))
+                messageModal.show();
+                dispatch(emptyCart());
+
             })
             .catch(error => {
-                console.log(error)
+                dispatch(createMessage({
+                    title: 'Order Cancelled',
+                    body: 'Internal server error. Please try again later'
+                }))
+                messageModal.show();
             })
     }
 
-    const handleGuestCheckout = async (e) => {
+    const handleGuestCheckout = (e) => {
         e.preventDefault();
         let form = document.getElementById('guest-checkout-form');
+        let messageModal = new Modal(document.getElementById('message-modal'));
         form.reset();
         const order = {products: orderInfo.value.products, email: email, totalPrice: cart.totalPrice}
         createOrder(order)
             .then(response => {
-                console.log(response)
+                dispatch(createMessage({
+                    title: 'Order Confirmed',
+                    body: 'Thank you for your order! Please check your email for more details2.'
+                }))
+                messageModal.show();
+                dispatch(emptyCart());
             })
             .catch(error => {
+                dispatch(createMessage({
+                    title: 'Order Cancelled',
+                    body: 'Please provide a valid email.'
+                }))
+                messageModal.show();
                 console.log(error)
             })
     }
 
-    const testFunction = () => {
+    const renderModals = () => {
         let loginModal = new Modal(document.getElementById('login-modal'));
         loginModal.show();
         let gCheckOutModal = new Modal(document.getElementById('order-modal'))
         gCheckOutModal.hide()
-
     }
 
     return (
@@ -79,8 +123,13 @@ const OrderModal = (orderInfo) => {
                                                        className="form-control"
                                                        id="email"
                                                        placeholder="Email"
-                                                       onChange={(event) => setEmail(event.target.value)}/>
+                                                    // onChange={(event) => setEmail(event.target.value)}
+                                                       onChange={(event) => handleChange(event.target.value)}
+                                                />
                                             </div>
+                                            {!validEmail &&
+                                                <span className="text-danger">{emailError}</span>
+                                            }
 
                                             <div className="d-flex justify-content-end mt-3">
                                                 <Link className="nav-link active me-3"
@@ -89,9 +138,9 @@ const OrderModal = (orderInfo) => {
                                                       data-bs-target="#register-modal">
                                                     Register
                                                 </Link>
-                                                <Link className="nav-link active" id="forgot-password-link"
+                                                <Link className="nav-link active"
                                                       data-bs-dismiss="modal"
-                                                      onClick={testFunction}
+                                                      onClick={renderModals}
                                                     // data-bs-toggle="modal" data-bs-target="#login-modal"
                                                 >
                                                     Login
@@ -149,6 +198,7 @@ const OrderModal = (orderInfo) => {
                     </div>
             }
 
+            <MessageModal/>
             {/*<LoginModal/>*/}
             <RegisterModal/>
         </>

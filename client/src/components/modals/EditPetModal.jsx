@@ -1,27 +1,31 @@
-import React, {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import React, {useState} from "react";
+import {Modal} from "bootstrap";
+import {useDispatch, useSelector} from "react-redux";
+import {refreshState, selectUser} from "../../features/user/userSlice";
+import {clearPet, selectPet} from "../../features/pet/petSlice";
 import {updatePet} from "../../api/PetService";
+import {refreshData} from "../../api/UserService";
+import {createMessage} from "../../features/message/messageSlice";
 
 const EditPetModal = (petInfo) => {
-    const navigate = useNavigate();
-    const [pet, setPet] = useState({});
+    const dispatch = useDispatch();
+    const returnedPet = useSelector(selectPet);
+    const user = useSelector(selectUser);
     const [modifiedPet, setModifiedPet] = useState({});
 
-    useEffect(() => {
-        if (Object.keys(petInfo.value.pet).length !== 0) {
-            setPet(petInfo.value.pet)
-        }
-    })
 
     const handleChange = (key, value) => {
         setModifiedPet(({
-            ...pet,
+            ...returnedPet,
             [key]: value
         }))
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+
+        let messageModal = new Modal(document.getElementById('message-modal'))
+
         const updatedPet = {
             id: modifiedPet.id,
             animalType: modifiedPet.animalType,
@@ -36,15 +40,31 @@ const EditPetModal = (petInfo) => {
         let petForm = document.getElementById('edit-pet-form');
         petForm.reset();
 
-        updatePet(updatedPet)
-            .then((response) => {
+        if (Object.keys(modifiedPet).length > 0) {
+            updatePet(updatedPet)
+                .then((response) => {
+                    refreshData(user.id)
+                        .then(response => {
+                            dispatch(refreshState({
+                                pets: response.data.pets,
+                                appointments: response.data.appointments
+                            }))
+                        })
+                        .catch(error => {
+                            console.log(error)
+                        })
+                })
+                .catch(error => {
+                    dispatch(createMessage({
+                        title: 'Update Pet Failed',
+                        body: 'Please fill out all required fields.'
+                    }))
+                    messageModal.show();
+                    console.log(error)
+                })
+        }
 
-            })
-            .catch(error => {
-                console.log(error)
-            })
-
-        navigate("/", {state: {from: '/profile'}})
+        dispatch(clearPet());
     }
 
     return (
@@ -63,41 +83,41 @@ const EditPetModal = (petInfo) => {
                             <div className="d-flex ">
                                 <label htmlFor="pet-first-name"></label>
                                 <input type="text" className="form-control me-2" id="pet-first-name"
-                                       placeholder={pet.firstName}
+                                       placeholder={returnedPet.firstName}
                                        onChange={(event) => handleChange("firstName", event.target.value)}
 
                                 />
                                 <label htmlFor="pet-last-name"></label>
                                 <input type="text" className="form-control" id="pet-last-name"
-                                       placeholder={pet.lastName}
+                                       placeholder={returnedPet.lastName}
                                        onChange={(event) => handleChange("lastName", event.target.value)}
                                 />
                             </div>
                             <div className="mb-0">
                                 <label htmlFor="pet-animal-type"></label>
                                 <input type="text" className="form-control" id="pet-animal-type"
-                                       placeholder={pet.animalType}
+                                       placeholder={returnedPet.animalType}
                                        onChange={(event) => handleChange("animalType", event.target.value)}
                                 />
                             </div>
                             <div className="mb-0">
                                 <label htmlFor="pet-breed"></label>
                                 <input type="text" className="form-control" id="pet-breed"
-                                       placeholder={pet.breed}
+                                       placeholder={returnedPet.breed}
                                        onChange={(event) => handleChange("breed", event.target.value)}
                                 />
                             </div>
                             <div className="mb-0">
                                 <label htmlFor="pet-age"></label>
                                 <input type="text" className="form-control" id="pet-age"
-                                       placeholder={pet.age}
+                                       placeholder={returnedPet.age}
                                        onChange={(event) => handleChange("age", event.target.value)}
                                 />
                             </div>
                             <div className="mb-0">
                                 <label htmlFor="pet-weight"></label>
                                 <input type="text" className="form-control" id="pet-weight"
-                                       placeholder={pet.weight + ' (lbs)'}
+                                       placeholder={returnedPet.weight + ' (lbs)'}
                                        onChange={(event) => handleChange("weight", event.target.value)}
                                 />
                             </div>
@@ -110,7 +130,7 @@ const EditPetModal = (petInfo) => {
                         <button id="update-pet-btn"
                                 onClick={handleSubmit}
                                 type="button"
-                                className="btn btn-primary"
+                                className="btn btn-dark"
                                 data-bs-dismiss="modal">Update
                         </button>
                     </div>

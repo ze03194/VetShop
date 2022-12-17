@@ -28,6 +28,23 @@ const createUser = async (req, res) => {
     } catch (error) {
         res.status(500).json({'message': error.message})
     }
+}
+
+const checkIfEmailExists = async (req, res) => {
+    const checkEmail = req.body.email
+
+    const duplicate = await Users.findAll({
+        where: {email: checkEmail}
+    })
+
+    console.log(duplicate.dataValues)
+
+    if (duplicate[0]?.dataValues?.email === checkEmail) {
+        return res.status(409).json({"message": "Email already exists"})
+    } else {
+        return res.status(200).json({"message": "Email valid"})
+    }
+
 
 }
 
@@ -118,5 +135,6 @@ module.exports = {
     updateUser,
     deleteUser,
     getAllUsers,
-    refreshData
+    refreshData,
+    checkIfEmailExists
 }

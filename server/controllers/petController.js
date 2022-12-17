@@ -2,10 +2,19 @@ const db = require('../models');
 const Pets = db.pets;
 
 const createPet = async (req, res) => {
-    const pet = req.body;
-    await Pets.create(pet);
+    try {
+        const pet = req.body;
 
-    return res.json({"Pet created": pet});
+        if (!pet.firstName || !pet.lastName || !pet.animalType || !pet.breed || !pet.age || !pet.weight) {
+            return res.status(400).json({message: "Missing params"})
+        }
+
+        await Pets.create(pet);
+        return res.json({"Pet created": pet});
+
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 const updatePet = async (req, res) => {

@@ -1,57 +1,39 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {deleteAppointment} from "../../api/AppointmentService";
 import {useNavigate} from "react-router-dom";
+import {refreshData} from "../../api/UserService";
+import {refreshState, selectUser} from "../../features/user/userSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {clearAppointment, selectAppointment} from "../../features/appointment/appointmentSlice";
 
 const DeleteAppointmentModal = (appointmentInfo) => {
     const navigate = useNavigate();
-    const [appointment, setAppointment] = useState({});
-    const [user, setUser] = useState({});
-    const [aptDeleted, setAptDeleted] = useState(false);
-    const [pets, setPets] = useState({});
+    const dispatch = useDispatch();
+    const user = useSelector(selectUser);
+    const returnedAppointment = useSelector(selectAppointment);
 
-    useEffect(() => {
-
-        if (Object.keys(appointmentInfo.value.user).length !== 0) {
-            setUser(appointmentInfo.value.user)
-        }
-
-        if (Object.keys(appointmentInfo.value.appointment).length !== 0) {
-            appointmentInfo.value.appointment.appointmentDate = new Date(Date.parse(appointmentInfo.value.appointment.appointmentDate))
-                .toISOString().split('T')[0]
-
-            let [time, modifier] = appointmentInfo.value.appointment.appointmentTime.split(' ');
-            let [hours, minutes] = time.split(':')
-
-            if (hours === '12') {
-                hours = '00';
-            }
-            if (modifier === 'PM' || modifier === 'pm') {
-                hours = parseInt(hours, 10) + 12;
-            }
-            appointmentInfo.value.appointment.appointmentTime = hours + ':' + minutes
-
-            setAppointment(appointmentInfo.value.appointment)
-
-        }
-    })
-
-    const renderDate = () => {
-
-    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        deleteAppointment(appointment.id)
+        deleteAppointment(returnedAppointment.id)
             .then(response => {
-                console.log(response)
-                setAptDeleted(true)
+                refreshData(user.id)
+                    .then(response => {
+                        dispatch(refreshState({
+                            pets: response.data.pets,
+                            appointments: response.data.appointments
+                        }))
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
             })
             .catch(error => {
                 console.log(error)
-                setAptDeleted(false)
             })
-        navigate("/", {state: {from: '/profile'}})
+
+        dispatch(clearAppointment());
     }
 
     return (
@@ -108,7 +90,7 @@ const DeleteAppointmentModal = (appointmentInfo) => {
                                 <label></label>
                                 <input type="date" className="form-control"
                                        placeholder="Date"
-                                       defaultValue={appointment.appointmentDate}
+                                       defaultValue={returnedAppointment.appointmentDate}
                                        disabled
                                     // onChange={(event) => setDate(event.target.value)}
                                 />
@@ -117,7 +99,7 @@ const DeleteAppointmentModal = (appointmentInfo) => {
                                 <label></label>
                                 <input type="time" className="form-control" step="600" min="08:00" max="17:30"
                                        id="apptTime"
-                                       defaultValue={appointment.appointmentTime}
+                                       defaultValue={returnedAppointment.appointmentTime}
                                        disabled
                                     // onChange={(event) => setTime(event.target.value)}
                                        required

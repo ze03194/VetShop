@@ -14,43 +14,10 @@ const userSlice = createSlice({
         storeUser: (state, action) => {
             let {Pets, Appointments, createdAt, updatedAt, ...storeUser} = action.payload.user;
             state.user = storeUser;
-            // state.user = action.payload.user
             state.pets = action.payload.pets
             state.appointments = action.payload.appointments
             state.accessToken = action.payload.accessToken
             state.refreshToken = action.payload.refreshToken
-
-            // if (action.payload.user) {
-            //     let {Pets, Appointments, createdAt, updatedAt, ...storeUser} = action.payload.user;
-            //     state.user = storeUser;
-            //     state.accessToken = action.payload.accessToken;
-            //     state.refreshToken = action.payload.refreshToken;
-            //     console.log(state.accessToken)
-            // }
-            // if (action.payload.user.Pets) {
-            //     for (let i = 0; i < action.payload.user.Pets.length; i++) {
-            //         let {createdAt, updatedAt, ...storePets} = action.payload.user.Pets[i];
-            //         state.pets.push(storePets);
-            //
-            //     }
-            //
-            // }
-            // if (action.payload.user.Appointments) {
-            //     for (let i = 0; i < action.payload.user.Appointments.length; i++) {
-            //         let {createdAt, updatedAt, ...storeAppointments} = action.payload.user.Appointments[i];
-            //         state.appointments = storeAppointments;
-            //     }
-            // }
-
-            // console.log(JSON.stringify(state.user))
-            // console.log(JSON.stringify(state.pets))
-            // console.log(JSON.stringify(state.appointments))
-
-
-            // state.pets = action.payload.pets;
-            // console.log(JSON.stringify(state.pets))
-
-            // console.log('from uSlice: ' + JSON.stringify(action.payload.user.Pets))
         },
 
         logOut: (state, action) => {
