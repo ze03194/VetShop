@@ -6,8 +6,7 @@ import {refreshState, selectUser} from "../../features/user/userSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {clearAppointment, selectAppointment} from "../../features/appointment/appointmentSlice";
 
-const DeleteAppointmentModal = (appointmentInfo) => {
-    const navigate = useNavigate();
+const DeleteAppointmentModal = () => {
     const dispatch = useDispatch();
     const user = useSelector(selectUser);
     const returnedAppointment = useSelector(selectAppointment);
@@ -68,17 +67,6 @@ const DeleteAppointmentModal = (appointmentInfo) => {
                                        disabled
                                 />
                             </div>
-                            {/*<div className="mb-0">*/}
-                            {/*    <label></label>*/}
-                            {/*    <select className="form-select" id="selectPet" multiple size="2"*/}
-                            {/*            disabled>*/}
-                            {/*        <option>Select Pet(s)</option>*/}
-                            {/*        {user?.Pets?.map(({firstName}) => (*/}
-                            {/*            <option value={firstName}>{firstName}</option>*/}
-                            {/*        ))}*/}
-                            {/*    </select>*/}
-
-                            {/*</div>*/}
                             <div className="mb-0">
                                 <label></label>
                                 <input type="text" className="form-control"
@@ -92,7 +80,6 @@ const DeleteAppointmentModal = (appointmentInfo) => {
                                        placeholder="Date"
                                        defaultValue={returnedAppointment.appointmentDate}
                                        disabled
-                                    // onChange={(event) => setDate(event.target.value)}
                                 />
                             </div>
                             <div>
@@ -101,7 +88,6 @@ const DeleteAppointmentModal = (appointmentInfo) => {
                                        id="apptTime"
                                        defaultValue={returnedAppointment.appointmentTime}
                                        disabled
-                                    // onChange={(event) => setTime(event.target.value)}
                                        required
                                 />
                             </div>

@@ -114,7 +114,6 @@ const LoginModal = () => {
             </div>
 
             <MessageModal/>
-            {/*<LoginMessageModal value={message}/>*/}
         </>
     );
 }

@@ -10,9 +10,7 @@ import MessageModal from "./MessageModals/MessageModal";
 import {Modal} from "bootstrap";
 
 const EditAppointmentModal = () => {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
-    const location = useLocation()
     const returnedAppointment = useSelector(selectAppointment)
     const user = useSelector(selectUser)
     const [pets, setPets] = useState([]);

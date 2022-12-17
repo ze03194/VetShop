@@ -118,8 +118,6 @@ const OrderPage = () => {
                     <div
                         className="d-flex flex-column bg-dark bg-gradient text-light rounded-4 p-5  mt-5 align-items-center custom-shadow">
                         <span>You currently have no orders in your cart.</span>
-                        {/*<span>Please login <Link className="text-light" data-bs-toggle="modal"*/}
-                        {/*                         data-bs-target="#login-modal">here</Link>.</span>*/}
                     </div>
 
                 </div>

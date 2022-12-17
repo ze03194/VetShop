@@ -13,7 +13,6 @@ const numbersRegex = /^[0-9]+$/;
 
 const RegisterModal = () => {
     const dispatch = useDispatch();
-    const [registerSuccess, setRegisterSuccess] = useState(false);
     const [validEmail, setValidEmail] = useState(false);
     const [emailError, setEmailError] = useState('');
 
@@ -26,13 +25,8 @@ const RegisterModal = () => {
     const [validZip, setValidZip] = useState(false);
     const [zipError, setZipError] = useState('');
 
-    const [emailExists, setEmailExists] = useState(false);
 
     const [minCharError, setMinCharError] = useState('');
-    const [message, setMessage] = useState({});
-
-    const [showModal, setShowModal] = useState(false);
-
     const [user, setUser] = useState({})
 
 
@@ -116,14 +110,12 @@ const RegisterModal = () => {
                         if (response.status === 200) {
                             loginModal.show()
                         } else {
+
                             dispatch(createMessage({
                                 title: 'Registration Failed',
                                 body: 'Reason: Server Error'
                             }))
-                            // setMessage({
-                            //     title: 'Registration Failed',
-                            //     body: 'Reason: Server error.'
-                            // })
+
                             messageModal.show()
                         }
 
@@ -135,24 +127,19 @@ const RegisterModal = () => {
                     })
             } else {
                 setUser({})
-                // setMessage({
-                //     title: 'Registration Failed',
-                //     body: 'Reason: Invalid details.'
-                // })
+
                 dispatch(createMessage({
                     title: 'Registration Failed',
                     body: 'Reason: Invalid details.'
                 }))
+
                 messageModal.show();
             }
             setUser({})
 
         } else {
             setUser({})
-            // setMessage({
-            //     title: 'Registration Failed',
-            //     body: 'Reason: Please fill out all fields.'
-            // })
+
             dispatch(createMessage({
                 title: 'Registration Failed',
                 body: 'Reason: Invalid details.'

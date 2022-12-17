@@ -13,13 +13,11 @@ const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 const OrderModal = (orderInfo) => {
     const {auth} = useAuth();
-    const [isLoggedIn, setIsLoggedIn] = useState(window.sessionStorage.getItem("isLoggedIn"));
     const cart = useSelector(selectAllOrders);
     const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [validEmail, setValidEmail] = useState(false);
     const [emailError, setEmailError] = useState('');
-    const [message, setMessage] = useState({});
 
 
     const handleChange = (value) => {
@@ -123,7 +121,6 @@ const OrderModal = (orderInfo) => {
                                                        className="form-control"
                                                        id="email"
                                                        placeholder="Email"
-                                                    // onChange={(event) => setEmail(event.target.value)}
                                                        onChange={(event) => handleChange(event.target.value)}
                                                 />
                                             </div>
